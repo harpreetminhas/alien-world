@@ -1,0 +1,39 @@
+import java.util.Iterator;
+import java.util.Set;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class FindNoOfLinks {
+
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\order\\Downloads\\chromedriver_win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://www.qaclickacademy.com/practice.php");
+		driver.manage().window().maximize();
+		System.out.println(driver.findElements(By.tagName("a")).size());
+		WebElement footerdriver = driver.findElement(By.id("gf-BIG"));
+		WebElement coulmndriver=footerdriver.findElement(By.xpath("//table/tbody/tr/td[1]/ul"));
+		coulmndriver.findElements(By.tagName("a")).size();
+		System.out.println(coulmndriver.findElements(By.tagName("a")).size());
+		
+		for(int i = 1;i<coulmndriver.findElements(By.tagName("a")).size();i++) 
+		{
+			String clickonLinkTab= Keys.chord(Keys.CONTROL,Keys.ENTER);
+			coulmndriver.findElements(By.tagName("a")).get(i).sendKeys(clickonLinkTab);
+			Thread.sleep(3000l);
+		}
+			Set<String> tabs = driver.getWindowHandles();
+			Iterator<String> it = tabs.iterator();
+			while(it.hasNext()) {
+				driver.switchTo().window( it.next());
+				System.out.println(driver.getTitle());
+			}
+		
+		
+		
+
+	}
+
+}
